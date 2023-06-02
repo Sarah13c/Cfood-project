@@ -1,0 +1,160 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   {% load static %}
+
+   {% include 'head.html' %}
+   <script src="https://kit.fontawesome.com/c0ae00d3f7.js" crossorigin="anonymous"></script>
+    <link href="{% static './static/css/styles.css' %}" rel="stylesheet" />
+    <style>
+       html,
+       body,
+       header,
+       .jarallax {
+       height: 1000px;
+       min-height: 800px;
+       }
+    </style>
+
+
+
+   <body id="page-top">
+      <!-- Intro Section -->
+
+      <div class="view jarallax" data-jarallax='{"speed": 0.2}'
+         style="background-image: url('https://fondosmil.com/fondo/31825.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;margin-top:-100px;">
+          <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">Cfood</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Hola, {{request.user}}
+                </a>
+
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{%url 'favourite_list'%}">Mis favoritos</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{%url 'user_logout'%}">Logout</a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+           <header class="masthead bg-primary text-white text-center">
+         <div class="mask rgba-indigo-light">
+
+            <div class="container h-100 d-flex justify-content-center align-items-center">
+
+               <div class="row">
+                  <div class="col-md-12 wow fadeIn">
+                     <div class="text-center white-text">
+                        <ul class="list-unstyled">
+                           <li>
+                              <h1 class="display-4 font-weight-bold yellow-text wow fadeIn"
+                                 data-wow-delay="0.3s">
+                                 <strong>¿Qué vas a cocinar el día de hoy?</strong>
+                              </h1>
+                           </li>
+                           <li>
+                              <h5 class="white-text description mb-5 wow fadeIn" data-wow-delay="0.4s">
+                                 Busca una receta de las {{total_recipes}} recetas que tenemos
+                              </h5>
+                           </li>
+                           <hr>
+                           <form action="{% url 'search' %}" method="get">
+                              <!--Accordion wrapper-->
+                              <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+                                 <!-- Accordion card -->
+                                 <div class="card">
+                                    <!-- Card header -->
+                                    <div class="card-header" role="tab" id="headingOne1">
+                                       <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                                          aria-controls="collapseOne1">
+                                          <h5 class="mb-0">
+                                             Filtrar por categoría: <i class="fas fa-angle-down rotate-icon"></i>
+                                          </h5>
+                                       </a>
+                                    </div>
+                                    <!-- Card body -->
+                                    <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+                                       <div class="card-body">
+                                          <!-- Material checked -->
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="breakfast" name="breakfast">
+                                             <label class="form-check-label" for="breakfast">Desayunos</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="lunch" name="lunch">
+                                             <label class="form-check-label" for="lunch">Lunch</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="salads" name="salads">
+                                             <label class="form-check-label" for="salads">Ensaladas</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="dinner" name="dinner">
+                                             <label class="form-check-label" for="dinner">Cenas</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="dessert" name="dessert">
+                                             <label class="form-check-label" for="dessert">Postres</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="easy" name="easy">
+                                             <label class="form-check-label" for="easy">Fácil</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                             <input type="radio" class="form-check-input" value="on" id="hard" name="hard">
+                                             <label class="form-check-label" for="hard">Difícil</label>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <!-- Accordion card -->
+                              <li class="wow fadeIn" data-wow-delay="0.4s">
+                                 <div class="md-form mb-0">
+                                    <input type="text" id="form51" class="form-control" name="search">
+                                    <label for="form51" class="">Buscar</label>
+                                 </div>
+                                 <button class="btn btn-white btn-rounded btn-lg yellow-text font-weight-bold ml-lg-0" type="submit">
+                                 <i class="fas fa-search blue-text mr-2" aria-hidden="true"></i> Buscar recetas</button>
+                              </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+           </header>
+      </div>
+      </form>
+      <!-- Footer -->
+      <footer class="page-footer text-center text-md-left unique-color-dark pt-0">
+         <!-- Copyright -->
+         <div class="footer-copyright text-center py-3">
+            <div class="container-fluid">
+               © 2022 Copyright: CFOOD
+            </div>
+         </div>
+         <!-- Copyright -->
+
+      </footer>
+      <!-- Footer -->
+      {% include 'scripts.html' %}
+      <script>
+         // Animation init
+         new WOW().init();
+
+         // Material Select Initialization
+         $(document).ready(function () {
+           $('.mdb-select').material_select();
+         });
+      </script>
+   </body>
+</html>

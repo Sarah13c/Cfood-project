@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'head.html' %}
+  <script src="https://kit.fontawesome.com/c0ae00d3f7.js" crossorigin="anonymous"></script>
+   <body style="min-height:800px;background-image: url(https://fondosmil.com/fondo/35751.jpg); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="mask rgba-gradient7">
+         <div class="container h-100 d-flex justify-content-center align-items-center">
+            <!-- Grid row -->
+            <div class="row  pt-5 mt-3">
+               <!-- Grid column -->
+               <div class="col-md-12">
+                  <div class="card">
+                     <div class="card-body">
+                        <h3>{{query}}: {{total}} Resultado (s) Encontrado.</h3>
+                     </div>
+                  </div>
+               </div>
+               <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+         </div>
+      </div>
+      <div class="jumbotron">
+         <div class="container mt-5">
+            <!--Section: Content-->
+            <section class="">
+               <!-- Grid row -->
+               <div class="row">
+
+
+
+
+                     {% for recipe in results %}
+                  <!-- Grid column -->
+                  <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+                     <!-- Card -->
+                     <div class="card hoverable">
+                        <!-- Card image -->
+                        <img class="card-img-top" src="{{recipe.image}}" alt="Card image cap">
+                        <!-- Card content -->
+                        <div class="card-body">
+                           <!-- Title -->
+                           <a href="{{recipe.get_url}}" class="black-text">{{recipe.title}}</a>
+                           <!-- Text -->
+                           <p class="card-title text-muted font-small mt-3 mb-2">{{recipe.description|safe|slice:":150"}}</p>
+                           <a type="button" class="btn btn-flat text-primary p-0 mx-0" href="{{recipe.get_url}}">Leer más<i class="fa fa-angle-right ml-2"></i></a>
+                           <a href="{% url 'favourite_add' recipe.id %}"><i class="fa-regular fa-heart"></i></a>
+                        </div>
+                     </div>
+                     <!-- Card -->
+                  </div>
+                  {% endfor %}
+
+
+
+
+
+
+
+               </div>
+               <!-- Grid row -->
+
+
+               <!--##############################Pagination################################-->
+
+               <!-- Pagination -->
+               <nav class="my-4 flex-center">
+                  <ul class="list-unstyled pagination pagination-circle pg-blue mb-0">
+
+                     <!-- First -->
+                     {% if page == "1" %}
+                     <li class="page-item disabled clearfix d-none d-md-block">
+                        <a class="page-link" href="#">Primera</a>
+                     </li>
+                     {% else %}
+                     <li class="page-item clearfix d-none d-md-block">
+                        <a class="page-link" href="?{{topic}}=on&search={{query}}&page=1">Primera</a>
+                     </li>
+                     {% endif %}
+
+                     <!-- Arrow left -->
+                     {% if results.has_previous %}
+                     <li class="page-item">
+                        <a class="page-link" href="?{{topic}}=on&search={{query}}&page={{results.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Anterior</span>
+                        </a>
+                     </li>
+                     {% else %}
+                     <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Anterior</span>
+                        </a>
+                     </li>
+                     {% endif %}
+
+                     <!-- Numbers -->
+                     {% for number in results.paginator.page_range %}
+                     <li class="page-item">
+                        <a class="page-link" href="?{{topic}}=on&search={{query}}&page={{number}}">{{number}}</a>
+                     </li>
+                     {% endfor %}
+
+
+                     <!-- Arrow right -->
+                     {% if results.has_next %}
+                     <li class="page-item">
+                        <a class="page-link" href="?{{topic}}=on&search={{query}}&page={{results.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Siguiente</span>
+                        </a>
+                     </li>
+                     {% else %}
+                     <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Siguiente</span>
+                        </a>
+                     </li>
+                     {% endif %}
+
+                     <!-- Last -->
+                     {% if page != results.paginator.num_pages %}
+                     <li class="page-item clearfix d-none d-md-block">
+                        <a class="page-link" href="?{{topic}}=on&search={{query}}&page={{results.paginator.num_pages}}">Última</a>
+                     </li>
+                     {% else %}
+                     <li class="page-item clearfix d-none d-md-block disabled">
+
+                         <a class="page-link" href="#">Última</a>
+                     </li>
+                     {% endif %}
+                  </ul>
+               </nav>
+               <!-- Pagination -->
+
+               <div class="text-center mt-5">
+                  <a href="{%url 'home'%}">Volver al inicio</a>
+               </div>
+            </section>
+            <!--Section: Content-->
+         </div>
+      </div>
+      <!-- Main Navigation -->
+      {% include 'scripts.html' %}
+   </body>
+</html>

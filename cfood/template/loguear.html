@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <title>Popup Login Form Design | CodingNepal</title> -->
+     <link rel="stylesheet" href="{% static './static/css/loguear.css' %}"/>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <title>Login</title>
+  </head>
+  <body>
+    <div class="login">
+        <div class="center">
+      <input type="checkbox" id="show">
+      <label for="show" class="show-btn">Login</label>
+      <div class="container">
+        <label for="show" class="close-btn fas fa-times" title="close"></label>
+           <div class="text">Login</div>
+          <br>
+            {% block content %}
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" id="submit">Login</button>
+
+
+            </form>
+            {% endblock %}
+            </div>
+
+        </div>
+        </div>
+</body>
+</html>
+
